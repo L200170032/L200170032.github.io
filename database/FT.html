@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Sinner World In Vains</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <!-- Custom styles for this template -->
+  <link href="css/clean-blog.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">HOME</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="me.html">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Let's Learn About FT</h1>
+            <h2 class="subheading">Here We'll Talk About FT</h2>
+            <span class="meta">Posted by
+              <a href="me.html">Me</a>
+              on Oct 19, 2019</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+<article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+                    	<p><b>MySQL Full-Text Searching</b></br>
+            		Full-text Searching adalah salah satu fungsi yang terdapat dalam database MySQL yang dapat digunakan untuk  mengoptimalkan proses dan hasil pencarian.<br>
+            	</p>
+	<p>
+		<b>A. Membuat full-text searching</b><br>
+		Full-­text  index  dapat  dibuat  saat  proses  pembuatan  tabel  dengan  perintah  “CREATE TABLE” atau saat perubahan struktur table yang sudah ada dengan menggunakan perintah “ALTER TABLE” atau “CREATE INDEX”.<br><br>
+		<b>>></b>syntax perintah "CREATE TABLE":<br>
+		CREATE TABLE table_name(<br>
+    column_list,<br>
+    ...,<br>
+    FULLTEXT (column1,column2,..)<br>
+);<br>
+contoh:<br>
+		CREATE TABLE posts (<br>
+  id INT NOT NULL AUTO_INCREMENT,<br>
+  title VARCHAR(255) NOT NULL,<br>
+  body TEXT,<br>
+  PRIMARY KEY (id),<br>
+  FULLTEXT KEY (body )<br>
+);<br><br>
+		<b>>></b>sintax perintah "ALTER TABLE":<br>
+ALTER TABLE table_name  <br>
+ADD FULLTEXT(column_name1, column_name2,…)<br>
+);<br>
+contoh:<br>
+ALTER TABLE products  <br>
+ADD FULLTEXT(productDescription,productLine);<br><br>
+<b>>></b>sintax perintah "CREATE INDEX":<br>
+CREATE FULLTEXT INDEX index_name<br>
+ON table_name(idx_column_name,...)<br>
+);<br>
+contoh:<br>
+CREATE FULLTEXT INDEX address<br>
+ON offices(addressLine1,addressLine2);<br><br>
+	</p>
+<p>
+	<b>B. MySQL Natural Language Full-Text Searches</b><br>
+	Untuk melakukan <i>Natural Language Full-Text Searches</i>, Anda menggunakan fungsi MATCH () dan AGAINST (). Fungsi MATCH () menentukan kolom tempat Anda ingin mencari dan fungsi AGAINST () menentukan kondisi pencarian yang akan digunakan.<br>
+	Berikut contoh penggunaan Full-Text Searching tipe Natural Language :<br>
+	<table border=1>
+		<tr>
+			<td><b>SELECT * FROM article WHERE MATCH (title) AGAINST ('tutorial');</b></td>
+		</tr>
+
+	</table>atau<br>
+		<table border=1>
+		<tr>
+			<td><b>SELECT * FROM article WHERE MATCH(title) AGAINST('tutorial' IN NATURAL LANGUAGE MODE);</b></td>
+		</tr>
+
+	</table>
+Query diatas menghasilkan data pada field title yang mengandung kata “tutorial”.<br>
+	<table border="1">
+		<tr>
+			<td>id</td>
+			<td>title</td>
+			<td>body</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>PHP dan Mysql:Tutorial Dasar</td>
+			<td>Pada tutorial kali ini, kita akan mencoba melakukan...</td>
+		</tr>		
+	</table>
+</p>
+<p>
+<b>C. MySQL Boolean Full-Text Searches</b><br>
+MySQL memungkinkan Anda untuk melakukan Full-Text Searches berdasarkan permintaan yang sangat kompleks dalam mode Boolean bersama dengan operator Boolean.<br>
+berikut ini operator dan fungsinya pada mode Boolean:<br>
+<table border="1">
+	<tr>
+		<td>Operator</td>
+		<td align="center">Deskripsi</td>
+	</tr>
+	<tr>
+		<td align="center">+</td>
+		<td>keyword harus terdapat pada semua hasil yang didapat</td>
+	</tr>
+	<tr>
+		<td align="center">-</td>
+		<td>keyword tidak boleh ada pada hasil yang didapat</td>
+	</tr>
+	<tr>
+		<td align="center">></td>
+		<td>keyword termasuk pada hasil yang didapat dengan urutan berdasar ranking secara increase</td>
+	</tr>
+	<tr>
+		<td align="center"><</td>
+		<td>keyword termasuk pada hasil yang didapat dengan urutan berdasar ranking secara decrease</td>
+	</tr>
+	<tr>
+		<td align="center">()</td>
+		<td>digunakan untuk melakukan grouping/pengelompokan dan dapat menambahkan operator lain untuk meningkatkan relevansi hasil pencarian</td>
+	</tr>
+	<tr >
+		<td align="center">()</td>
+		<td>digunakan untuk melakukan grouping/pengelompokan dan dapat menambahkan operator lain untuk meningkatkan relevansi hasil pencarian</td>
+	</tr>
+	<tr>
+		<td align="center">~</td>
+		<td>berfungsi sebagai operator negasi, jika sebuah keyword diberikan tanda ~, mengakibatkan relevansi/score minus</td>
+	</tr>
+	<tr>
+		<td align="center">*</td>
+		<td>merupakan operator wildcard</td>
+	</tr>
+	<tr>
+		<td align="center">" "</td>
+		<td>digunakan pada awal dan akhir keyword yang terdiri dari dua kata atau lebih</td>
+	</tr>				
+</table>
+contoh:<br><br>
+<table border=1>
+		<tr>
+			<td><b>SELECT * FROM articles WHERE MATCH (title,body) AGAINST ('+mysql -database' IN BOOLEAN MODE);</b></td>
+		</tr>
+
+	</table>
+Hasil yang diperoleh harus mengandung kata mysql dan tidak boleh mengandung katadatabase pada field title dan body.<br>
+	<table border="1">
+		<tr>
+			<td>id</td>
+			<td>title</td>
+			<td>body</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>How To Use MySQL Well</td>
+			<td>After you went through a ...</td>
+		</tr>	
+		<tr>
+			<td>4</td>
+			<td>1001 MySQL Tricks</td>
+			<td>1. Never run mysqld as root. 2.	</td>
+		</tr>
+		<tr>
+			<td>6</td>
+			<td>MySQL Security</td>
+			<td>When configured properly, MySQL	</td>
+		</tr>		
+	</table>
+<br>
+<table border=1>
+		<tr>
+			<td><b>SELECT * FROM articles WHERE MATCH (title,body) AGAINST ('tutor*' IN BOOLEAN MODE);</b></td>
+		</tr>
+
+	</table>
+Penambahan asterisk (*) pada awal atau akhir keyword berfungsi seperti perintah LIKE ‘tutor%’ .<br>
+	<table border="1">
+		<tr>
+			<td>id</td>
+			<td>title</td>
+			<td>body</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>MySQL Tutorial</td>
+			<td>BMS stands for DataBase ...</td>
+		</tr>
+	</table><br>
+<table border=1>
+		<tr>
+			<td><b>SELECT * FROM articles WHERE MATCH (title,body) AGAINST ('+mysql+(>tutorial < database)' IN BOOLEAN MODE);</b></td>
+		</tr>
+
+	</table>
+Penggunaan  operator  >   dan  <   menghasilkan  data  yang  mengandung  kata  mysql  dan tutorial memiliki score relevansi yang lebih tinggi dibandingkan data yang  mengandung kata mysql dan database, dan seluruh hasil harus mengandung kata mysql+tutorial atau database.<br>
+	<table border="1">
+		<tr>
+			<td>id</td>
+			<td>title</td>
+			<td>body</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>MySQL Tutorial</td>
+			<td>BMS stands for DataBase ...</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>MySQL vs. YourSQL </td>
+			<td>In the following database comparison...|</td>
+		</tr>
+	</table><br>
+<table border=1>
+		<tr>
+			<td><b>SELECT * FROM articles WHERE MATCH (title,body) AGAINST ('"mysql tutorial"' IN BOOLEAN MODE);</b></td>
+		</tr>
+
+	</table>
+Hasil pencarian harus mengandung kata “mysql“ yang kemudian diikuti kata “tutorial“.<br>
+	<table border="1">
+		<tr>
+			<td>id</td>
+			<td>title</td>
+			<td>body</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>MySQL Tutorial</td>
+			<td>BMS stands for DataBase ...</td>
+		</tr>
+	</table>			
+</p>
+
+
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <hr>
+
+  <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            <li class="list-inline-item">
+              <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          </ul>
+          <p class="copyright text-muted">Copyright &copy; Your Website 2019</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
